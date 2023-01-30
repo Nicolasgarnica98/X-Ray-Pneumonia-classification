@@ -6,6 +6,7 @@ from tqdm import tqdm
 from zipfile import ZipFile
 from skimage.io import imread
 from skimage.color import rgb2gray
+import matplotlib.pyplot as plt
 
 class get_dataset:
 
@@ -49,3 +50,38 @@ class get_dataset:
             img_array.append(imread(df_img[i]))
             
         return img_array
+
+    def data_exploration(img_array, labels_txt):
+        fig1, ax1 = plt.subplots(2,3)
+        plot_img = []
+        plot_lbl = []
+        for i in range(0,6):
+            img_indx = np.random.randint(0,len(img_array)-1)
+            img = img_array[img_indx]
+            img_label = labels_txt[img_indx]
+            plot_img.append(img)
+            plot_lbl.append(img_label)
+        
+        fig1, ax1 = plt.subplots(2,3)
+        fig1.suptitle('\nDataset exploration\n')
+        ax1[0][0].set_title(f'Img size: {plot_img[0].shape}\n Label: {plot_lbl[0]}')
+        ax1[0][0].imshow(plot_img[0], cmap='gray')
+        ax1[0][0].axis('off')
+        ax1[0][1].set_title(f'Img size: {plot_img[1].shape}\n Label: {plot_lbl[1]}')
+        ax1[0][1].imshow(plot_img[1], cmap='gray')
+        ax1[0][1].axis('off')
+        ax1[0][2].set_title(f'Img size: {plot_img[2].shape}\n Label: {plot_lbl[2]}')
+        ax1[0][2].imshow(plot_img[2], cmap='gray')
+        ax1[0][2].axis('off')
+        ax1[1][0].set_title(f'Img size: {plot_img[3].shape}\n Label: {plot_lbl[3]}')
+        ax1[1][0].imshow(plot_img[3], cmap='gray')
+        ax1[1][0].axis('off')
+        ax1[1][1].set_title(f'Img size: {plot_img[4].shape}\n Label: {plot_lbl[4]}')
+        ax1[1][1].imshow(plot_img[4], cmap='gray')
+        ax1[1][1].axis('off')
+        ax1[1][2].set_title(f'Img size: {plot_img[5].shape}\n Label: {plot_lbl[5]}')
+        ax1[1][2].imshow(plot_img[5], cmap='gray')
+        ax1[1][2].axis('off')
+        fig1.tight_layout()
+        plt.show()
+
