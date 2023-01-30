@@ -1,11 +1,9 @@
 import os
 import gdown
-import glob
 import numpy as np
 from tqdm import tqdm
 from zipfile import ZipFile
 from skimage.io import imread
-from skimage.color import rgb2gray
 import matplotlib.pyplot as plt
 
 class get_dataset:

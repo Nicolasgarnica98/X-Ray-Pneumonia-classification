@@ -1,7 +1,6 @@
 import glob
 import os
 from Get_dataset import get_dataset
-import matplotlib.pyplot as plt
 
 def main():
     compressed_dataset = get_dataset.download('https://drive.google.com/file/d/1OimFddxkp3Y9hYEdtFaFUst0QVLl5zXX/view?usp=sharing')
