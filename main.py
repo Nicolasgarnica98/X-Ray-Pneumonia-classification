@@ -4,6 +4,7 @@ import numpy as np
 from Get_dataset import get_dataset
 from PreProcessing import pre_processing
 
+
 def main():
     compressed_dataset = get_dataset.download('https://drive.google.com/file/d/1OimFddxkp3Y9hYEdtFaFUst0QVLl5zXX/view?usp=sharing')
     get_dataset.unzip_dataset(compressed_dataset)
@@ -26,10 +27,9 @@ def main():
     train_IMG = pre_processing.resize_images(500,500,train_IMG)
     train_IMG = pre_processing.image_normalization(train_IMG)
 
-    train_IMG = np.array(train_IMG)
-    train_lbl = np.array(train_lbl)
+    train_IMG = pre_processing.get_input_shape(train_IMG,'image array input')
+    train_lbl = pre_processing.get_input_shape(train_lbl,'labels')
 
-    print(train_IMG.shape)
     # get_dataset.data_exploration(train_IMG,train_lbl_txt)
 
 if __name__ =='__main__':

@@ -8,7 +8,7 @@ class pre_processing:
     def rgb_to_gray(img_array):
         gray_img_array = []
         gray_img = None
-        for i in tqdm(range(0,len(img_array)),'Converting RGB images to gray-scaled'):
+        for i in tqdm(range(0,len(img_array)),'Converting RGB images to gray-scale'):
             gray_img = img_array[i]
             if len(img_array[i].shape) > 2:
                 gray_img = rgb2gray(gray_img)
@@ -33,6 +33,12 @@ class pre_processing:
             norm_img_array.append(act_img)
         return(norm_img_array)
 
-    def get_input_shape(array):
-            return
+    def get_input_shape(array, type_data):
+
+        print(f'Getting the correct input shape for {type_data}...')
+        if type_data == 'image array input':
+            array = np.array(array)
+        elif type_data == 'labels':
+            array = np.array(array)
+        print(array.shape)
 
