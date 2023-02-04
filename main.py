@@ -2,7 +2,7 @@ import glob
 import os
 import numpy as np 
 from Get_dataset import get_dataset
-from Image_PreProcessing import pre_processing
+from PreProcessing import pre_processing
 
 def main():
     compressed_dataset = get_dataset.download('https://drive.google.com/file/d/1OimFddxkp3Y9hYEdtFaFUst0QVLl5zXX/view?usp=sharing')

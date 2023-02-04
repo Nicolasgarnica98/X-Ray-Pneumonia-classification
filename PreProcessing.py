@@ -33,5 +33,6 @@ class pre_processing:
             norm_img_array.append(act_img)
         return(norm_img_array)
 
-    # def get_CNN_input_shape(img_array):
+    def get_input_shape(array):
+            return
 

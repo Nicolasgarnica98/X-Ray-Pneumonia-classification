@@ -5,8 +5,6 @@ from sklearn.metrics import confusion_matrix, accuracy_score, f1_score, recall_s
 from keras.layers import Input, Dense, Conv2D, BatchNormalization, Dropout, MaxPool2D, Flatten
 
 class CNN_Model:
-    def get_input_shape():
-        return
         
     def build_model():
         return
