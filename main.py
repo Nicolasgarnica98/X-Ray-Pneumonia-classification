@@ -3,6 +3,7 @@ import os
 import numpy as np 
 from Get_dataset import get_dataset
 from PreProcessing import pre_processing
+from model_processing import CNN_Model
 
 
 def main():
@@ -24,13 +25,17 @@ def main():
 
     #Pre-processing
     train_IMG = pre_processing.rgb_to_gray(train_IMG)
-    train_IMG = pre_processing.resize_images(500,500,train_IMG)
+    train_IMG = pre_processing.resize_images(100,100,train_IMG)
     train_IMG = pre_processing.image_normalization(train_IMG)
 
     train_IMG = pre_processing.get_input_shape(train_IMG,'image array input')
     train_lbl = pre_processing.get_input_shape(train_lbl,'labels')
-
+    print(train_IMG[0].shape)
     # get_dataset.data_exploration(train_IMG,train_lbl_txt)
+    print(train_lbl.shape)
+
+    CNN_Model.train_model(train_IMG,train_lbl)
+    CNN_Model.get_train_performance_metrics()
 
 if __name__ =='__main__':
     main()

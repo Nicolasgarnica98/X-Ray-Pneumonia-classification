@@ -2,6 +2,7 @@ import numpy as np
 from tqdm import tqdm
 from skimage.color import rgb2gray
 from skimage.transform import resize
+from keras.utils import to_categorical
 
 class pre_processing:
     
@@ -34,11 +35,14 @@ class pre_processing:
         return(norm_img_array)
 
     def get_input_shape(array, type_data):
-
+        
         print(f'Getting the correct input shape for {type_data}...')
         if type_data == 'image array input':
-            array = np.array(array)
+            gs_array = np.array(array)
+            gs_array = np.expand_dims(gs_array,-1)
         elif type_data == 'labels':
-            array = np.array(array)
-        print(array.shape)
+            gs_array = np.array(array)
+        print(gs_array.shape)
+
+        return gs_array
 
