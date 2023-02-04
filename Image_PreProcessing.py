@@ -13,7 +13,6 @@ class pre_processing:
             if len(img_array[i].shape) > 2:
                 gray_img = rgb2gray(gray_img)
             gray_img_array.append(gray_img)
-            print(np.max(gray_img))
         return gray_img_array
 
     def resize_images(x_size, y_size, img_array):
@@ -27,7 +26,7 @@ class pre_processing:
     def image_normalization(img_array):
         norm_img_array = []
         act_img = None
-        for i in range(0,len(img_array)):
+        for i in tqdm(range(0,len(img_array)),'Normalizing images'):
             act_img = img_array[i]
             if np.max(act_img)>1:
                 act_img = act_img/255

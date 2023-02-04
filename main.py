@@ -25,6 +25,11 @@ def main():
     train_IMG = pre_processing.rgb_to_gray(train_IMG)
     train_IMG = pre_processing.resize_images(500,500,train_IMG)
     train_IMG = pre_processing.image_normalization(train_IMG)
+
+    train_IMG = np.array(train_IMG)
+    train_lbl = np.array(train_lbl)
+
+    print(train_IMG.shape)
     # get_dataset.data_exploration(train_IMG,train_lbl_txt)
 
 if __name__ =='__main__':
