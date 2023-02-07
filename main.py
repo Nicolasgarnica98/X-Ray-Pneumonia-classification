@@ -27,7 +27,7 @@ def main():
 
         #Pre-processing
         train_IMG = pre_processing.rgb_to_gray(train_IMG)
-        train_IMG = pre_processing.resize_images(30,30,train_IMG)
+        train_IMG = pre_processing.resize_images(50,50,train_IMG)
         train_IMG = pre_processing.image_normalization(train_IMG)
 
         train_IMG = pre_processing.get_input_shape(train_IMG,'image array input')
@@ -63,7 +63,7 @@ def main():
     test_lbl = get_dataset.get_labels(df_test)[0]
     test_IMG = pre_processing.rgb_to_gray(test_IMG)
     test_IMG = pre_processing.image_normalization(test_IMG)
-    test_IMG = pre_processing.resize_images(30,30,test_IMG)
+    test_IMG = pre_processing.resize_images(50,50,test_IMG)
 
     test_IMG = pre_processing.get_input_shape(test_IMG,'image array input')
     test_lbl = pre_processing.get_input_shape(test_lbl,'labels')
