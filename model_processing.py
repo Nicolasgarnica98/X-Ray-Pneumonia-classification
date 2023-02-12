@@ -5,7 +5,7 @@ import tensorflow as tf
 from tensorflow import keras
 from keras.models import Model
 import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix, accuracy_score, f1_score, recall_score
+from sklearn.metrics import confusion_matrix, classification_report
 from keras.layers import Input, Dense, Conv2D, BatchNormalization, Dropout, MaxPooling2D, Flatten
 
 
@@ -93,15 +93,16 @@ class CNN_Model():
         prob_predictions = model.predict(img_array)
         predictions = prob_predictions.argmax(axis=1)
         predictions.astype(int)
-        TestAccuracy, TestF1, TestRecall = np.round(accuracy_score(lbl,predictions),3), np.round(f1_score(lbl,predictions,average='weighted'),3), np.round(recall_score(lbl,predictions,average='weighted'),3)
         cm = confusion_matrix(lbl,predictions)
-        plt.title('Test metrics and confusion matrix \n'+'Accuracy = '+str(TestAccuracy) + '    F1 = '+str(TestF1)+'    Recall = '+str(TestRecall)+'\n')
+        plt.title('Confusion matrix')
         sn.set(font_scale=1.4)
-
         x_axis_labels = ['Normal', 'Virus', 'Bacteria']
         y_axis_labels = ['Normal', 'Virus', 'Bacteria']
         conf = sn.heatmap(cm, annot=True, annot_kws={'size':8}, cmap='Blues',xticklabels=x_axis_labels, yticklabels=y_axis_labels)
         conf.set(xlabel='Predicted class', ylabel='True class')
         conf.tick_params(left=True, bottom=True)
+        metrics = classification_report(lbl,predictions, target_names= x_axis_labels)
+        print(metrics)
         plt.tight_layout()
         plt.show()
+ 
