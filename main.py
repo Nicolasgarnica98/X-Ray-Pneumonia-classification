@@ -8,7 +8,7 @@ from model_processing import CNN_Model
 
 def main():
     model_name = str(input('Insert a name for the model to load/train: '))
-    compressed_dataset = get_dataset.download('https://drive.google.com/file/d/1OimFddxkp3Y9hYEdtFaFUst0QVLl5zXX/view?usp=sharing')
+    compressed_dataset = get_dataset.download('https://1drv.ms/u/s!Aocxj1Hi_hVIldsmWIMj9AcU2MH7hw?e=Z4FxiE')
     get_dataset.unzip_dataset(compressed_dataset)
 
     Actual_CNN_Model = CNN_Model(model_name=model_name)

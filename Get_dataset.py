@@ -19,7 +19,7 @@ class get_dataset:
 
         if os.path.exists('./dataset') == False:
             os.mkdir('./dataset')
-            onedrive_url = "https://1drv.ms/u/s!Aocxj1Hi_hVIldsmWIMj9AcU2MH7hw?e=I5ycIU"
+            onedrive_url = url
             # Generate Direct Download URL from above Script
             direct_download_url = create_onedrive_directdownload(onedrive_url)
 
