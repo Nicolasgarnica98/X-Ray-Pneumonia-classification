@@ -1,5 +1,6 @@
 import os
-import gdown
+import wget
+import base64
 import numpy as np
 from tqdm import tqdm
 from zipfile import ZipFile
@@ -9,12 +10,24 @@ import matplotlib.pyplot as plt
 class get_dataset:
 
     def download(url):
+
+        def create_onedrive_directdownload (onedrive_link):
+            data_bytes64 = base64.b64encode(bytes(onedrive_link, 'utf-8'))
+            data_bytes64_String = data_bytes64.decode('utf-8').replace('/','_').replace('+','-').rstrip("=")
+            resultUrl = f"https://api.onedrive.com/v1.0/shares/u!{data_bytes64_String}/root/content"
+            return resultUrl
+
         if os.path.exists('./dataset') == False:
             os.mkdir('./dataset')
-            file_id=url.split('/')[-2]
-            prefix = 'https://drive.google.com/uc?/export=download&id='
-            downloaded_file = gdown.download(prefix+file_id,'./dataset/chest_xray.zip')
-            return downloaded_file
+            onedrive_url = "https://1drv.ms/u/s!Aocxj1Hi_hVIldsmWIMj9AcU2MH7hw?e=I5ycIU"
+            # Generate Direct Download URL from above Script
+            direct_download_url = create_onedrive_directdownload(onedrive_url)
+
+            print('Downloading dataset')
+            r = wget.download(url=direct_download_url, out='./dataset/')
+            print('\n')
+            return r
+
 
 
     def unzip_dataset(dataset_comp):
