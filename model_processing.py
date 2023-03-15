@@ -4,6 +4,7 @@ import seaborn as sn
 import tensorflow as tf
 from tensorflow import keras
 from keras.models import Model
+from keras import regularizers
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, classification_report
 from keras.layers import Input, Dense, Conv2D, BatchNormalization, Dropout, MaxPooling2D, Flatten
@@ -16,24 +17,24 @@ class CNN_Model():
         self.model_name = model_name
 
 
-    def train_model(self, train_array, train_labels):
+    def train_model(self, train_array, train_labels,df_val_img, lbl_val):
 
         num_classes = len(np.unique(train_labels))
 
         i = Input(shape=train_array[0].shape)
-        x = Conv2D(filters=32, kernel_size=(3,3), activation='relu',padding='same')(i)
+        x = Conv2D(filters=128, kernel_size=(3,3), activation='relu',padding='same',kernel_regularizer=regularizers.l2(0.0001))(i)
         x = BatchNormalization()(x)
-        x = Conv2D(filters=32, kernel_size=(3,3), activation='relu',padding='same')(x)
+        # x = Conv2D(filters=32, kernel_size=(3,3), activation='relu',padding='same',kernel_regularizer=regularizers.l2(0.0001))(x)
+        # x = BatchNormalization()(x)
+        # x = MaxPooling2D(pool_size=(2,2))(x)
+
+        x = Conv2D(filters=256, kernel_size=(3,3), activation='relu',padding='same',kernel_regularizer=regularizers.l2(0.0001))(x)
         x = BatchNormalization()(x)
         x = MaxPooling2D(pool_size=(2,2))(x)
 
-        x = Conv2D(filters=64, kernel_size=(3,3), activation='relu',padding='same')(x)
-        x = BatchNormalization()(x)
-        x = MaxPooling2D(pool_size=(2,2))(x)
-
-        x = Conv2D(filters=128, kernel_size=(3,3), activation='relu',padding='same')(x)
-        x = BatchNormalization()(x)
-        x = MaxPooling2D(pool_size=(2,2))(x)
+        # x = Conv2D(filters=128, kernel_size=(3,3), activation='relu',padding='same',kernel_regularizer=regularizers.l2(0.0001))(x)
+        # x = BatchNormalization()(x)
+        # x = MaxPooling2D(pool_size=(2,2))(x)
 
         x = Flatten()(x)
         x = Dense(units=1024, activation='relu')(x)
@@ -48,7 +49,7 @@ class CNN_Model():
 
         model = Model(i,x)
         model.compile(optimizer='adam',loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-        result = model.fit(x=train_array,y=train_labels,epochs=30,batch_size=32)
+        result = model.fit(x=train_array,y=train_labels,epochs=100,batch_size=32,validation_data=(df_val_img,lbl_val))
         model.save(f'./saved models/{self.model_name}_SavedModel.h5')
         np.save(f'./saved train-history/{self.model_name}_SavedTrainHistory.npy',result.history)
 
@@ -60,11 +61,13 @@ class CNN_Model():
         fig1.suptitle(f'{self.model_name} evaluation')
         ax1[0].set_title('Accuracy per epoch')
         ax1[0].plot(ModelHistory['accuracy'],label='Accuracy')
+        ax1[0].plot(ModelHistory['val_accuracy'],label='Val Accuracy')
         ax1[0].set_xlabel('Epoch')
         ax1[0].set_ylabel('Accuracy')
         ax1[0].legend()
         ax1[0].grid(True)
-        ax1[1].plot(ModelHistory['loss'],label='Loss',color='orange')
+        ax1[1].plot(ModelHistory['loss'],label='Loss')
+        ax1[1].plot(ModelHistory['val_loss'],label='Val Loss')
         ax1[1].set_title('Loss per epoch')
         ax1[1].set_xlabel('Epoch')
         ax1[1].set_ylabel('Loss')

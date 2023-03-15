@@ -14,15 +14,19 @@ def main():
     Actual_CNN_Model = CNN_Model(model_name=model_name)
 
     def train_pipeline():
-        df_train_normal = glob.glob(os.path.join('dataset/train/NORMAL','*.jpeg'))
-        df_train_pneumonia = glob.glob(os.path.join('dataset/train/PNEUMONIA','*.jpeg'))
-        df_train = df_train_normal + df_train_pneumonia
+    
+        df_train = glob.glob(os.path.join('dataset/train/','*.jpeg'))
+        print('Train data')
+        print(len(df_train))
+        train_lbl, train_lbl_txt = get_dataset.get_labels(df_train)
 
+        df_val = glob.glob(os.path.join('dataset/val/','*.jpeg'))
+        print('Validation data')
+        print(len(df_val))
+        val_lbl, val_lbl_txt = get_dataset.get_labels(df_val)
 
-        train_fullLabels = get_dataset.get_labels(df_train)
-        train_lbl = train_fullLabels[0]
-        train_lbl_txt = train_fullLabels[1]
         train_IMG = get_dataset.load_images(df_train)
+        val_IMG = get_dataset.load_images(df_val)
         # get_dataset.data_exploration(train_IMG,train_lbl_txt)
 
         #Pre-processing
@@ -32,11 +36,15 @@ def main():
 
         train_IMG = pre_processing.get_input_shape(train_IMG,'image array input')
         train_lbl = pre_processing.get_input_shape(train_lbl,'labels')
-        print(train_IMG[0].shape)
-        # get_dataset.data_exploration(train_IMG,train_lbl_txt)
-        print(train_lbl.shape)
 
-        Actual_CNN_Model.train_model(train_IMG,train_lbl)
+        val_IMG = pre_processing.rgb_to_gray(val_IMG)
+        val_IMG = pre_processing.resize_images(32,32,val_IMG)
+        val_IMG = pre_processing.image_normalization(val_IMG)
+
+        val_IMG = pre_processing.get_input_shape(val_IMG,'image array input')
+        val_lbl = pre_processing.get_input_shape(val_lbl,'labels')
+
+        Actual_CNN_Model.train_model(train_IMG,train_lbl,val_IMG,val_lbl)
 
     if os.path.exists(f'./saved models/{model_name}_SavedModel.h5') == False:
         if os.path.exists('./saved models')==False:
@@ -55,9 +63,7 @@ def main():
 
     #Test the model
     #Predictions
-    df_test_normal = glob.glob(os.path.join('dataset/test/NORMAL','*.jpeg'))
-    df_test_pneumonia = glob.glob(os.path.join('dataset/test/PNEUMONIA','*.jpeg'))
-    df_test = df_test_normal + df_test_pneumonia
+    df_test = glob.glob(os.path.join('dataset/test/','*.jpeg'))
     print(f'Testing model "{model_name}"...')
     test_IMG = get_dataset.load_images(df_test)
     test_lbl = get_dataset.get_labels(df_test)[0]

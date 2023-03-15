@@ -1,11 +1,13 @@
 import os
 import wget
 import base64
+import shutil
 import numpy as np
 from tqdm import tqdm
 from zipfile import ZipFile
 from skimage.io import imread
 import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
 
 class get_dataset:
 
@@ -40,18 +42,26 @@ class get_dataset:
     def get_labels(df):
         labels = []
         txt_labels = []
+        num_normal = 0
+        num_bacteria = 0
+        num_virus = 0
         for i in range(0,len(df)):
             if df[i].find('virus')!=-1:
                 labels.append(1)
                 txt_labels.append('Virus')
+                num_virus += 1
             elif df[i].find('bacteria')!=-1:
                 labels.append(2)
                 txt_labels.append('Bacteria')
+                num_bacteria += 1
             else:
                 labels.append(0)
                 txt_labels.append('Normal')
+                num_normal += 1
         labels = np.array(labels)
-
+        num_samples_per_class = {'virus':num_virus, 'bacteria':num_bacteria, 'Normal':num_normal}
+        print(num_samples_per_class)
+        
         return labels, txt_labels
 
 
@@ -61,6 +71,22 @@ class get_dataset:
             img_array.append(imread(df_img[i]))
             
         return img_array
+    
+    def divide_dataset_in_folders(df_img):
+        os.mkdir('./dataset/train')
+        os.mkdir('./dataset/test')
+        os.mkdir('./dataset/val')
+        df_train, df_test = train_test_split(df_img,test_size=0.15)
+        df_train, df_val = train_test_split(df_train,test_size=0.1)
+
+        folder_array = ['./dataset/train', './dataset/test', './dataset/val']
+        df_array = [df_train,df_test,df_val]
+
+        for i in tqdm(range(0,len(folder_array)),'Moving files: '):
+            for file in df_array[i]:
+                source = file
+                shutil.move(source, folder_array[i])
+
 
     def data_exploration(img_array, labels_txt):
         fig1, ax1 = plt.subplots(2,3)
