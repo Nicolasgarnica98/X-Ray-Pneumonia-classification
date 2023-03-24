@@ -12,7 +12,7 @@ from keras.layers import Input, Dense, Conv2D, BatchNormalization, Dropout, MaxP
 
 class CNN_Model():
 
-    
+
     def __init__(self, model_name):
         self.model_name = model_name
 
@@ -95,3 +95,7 @@ class CNN_Model():
         plt.tight_layout()
         plt.show()
  
+ 
+    def get_model_summary(self):
+           model = tf.keras.models.load_model(f'./saved models/{self.model_name}_SavedModel.h5')
+           print(model.summary())

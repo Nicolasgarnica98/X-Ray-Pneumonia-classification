@@ -82,6 +82,7 @@ def main():
     
     #Load the model's history and visualization of loss and accuracy.
     Actual_CNN_Model.get_train_performance_metrics()
+    Actual_CNN_Model.get_model_summary()
 
 
     #Test the model
@@ -95,7 +96,7 @@ def main():
     #Preprocessing the images form the test data
     test_IMG = pre_processing.rgb_to_gray(test_IMG)
     test_IMG = pre_processing.image_normalization(test_IMG)
-    test_IMG = pre_processing.resize_images(32,32,test_IMG)
+    test_IMG = pre_processing.resize_images(128,128,test_IMG)
     #Change the input array shape for preparing it for model prediction input
     test_IMG = pre_processing.get_input_shape(test_IMG,'image array input')
     test_lbl = pre_processing.get_input_shape(test_lbl,'labels')
