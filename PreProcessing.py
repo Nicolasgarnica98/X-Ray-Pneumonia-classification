@@ -5,16 +5,19 @@ from skimage.transform import resize
 
 class pre_processing:
     
+    #Rgb to gray scaled images
     def rgb_to_gray(img_array):
         gray_img_array = []
         gray_img = None
         for i in tqdm(range(0,len(img_array)),'Converting RGB images to gray-scale'):
             gray_img = img_array[i]
+            #Check if image is not grayscaled.
             if len(img_array[i].shape) > 2:
                 gray_img = rgb2gray(gray_img)
             gray_img_array.append(gray_img)
         return gray_img_array
 
+    #Resize images to the desired size
     def resize_images(x_size, y_size, img_array):
         rs_img_array = []
         rs_img = None
@@ -23,16 +26,19 @@ class pre_processing:
             rs_img_array.append(rs_img)
         return rs_img_array
 
+    #Image normalization between [0,1]
     def image_normalization(img_array):
         norm_img_array = []
         act_img = None
         for i in tqdm(range(0,len(img_array)),'Normalizing images'):
             act_img = img_array[i]
+            #Check if image is not already normalized
             if np.max(act_img)>1:
                 act_img = act_img/255
             norm_img_array.append(act_img)
         return(norm_img_array)
 
+    #Change image array dimension in order to fit the Tnesorflow standarized input shape
     def get_input_shape(array, type_data):
         
         print(f'Getting the correct input shape for {type_data}...')

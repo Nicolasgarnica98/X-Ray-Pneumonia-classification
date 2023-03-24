@@ -12,7 +12,7 @@ from keras.layers import Input, Dense, Conv2D, BatchNormalization, Dropout, MaxP
 
 class CNN_Model():
 
-
+    
     def __init__(self, model_name):
         self.model_name = model_name
 
