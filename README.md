@@ -1,7 +1,5 @@
-#Chest X-Ray Image Pneumonia classification
+##Chest X-Ray Image Pneumonia classification
 ***
-
-Author: Nicolas Garnica
 
 Classification of x-ray images from different patients. The dataset contains the classes:
 - Normal
@@ -16,4 +14,4 @@ the code will continue the main() script unless stopped. The parameters already 
 
 The required libraries for the code to run are listed in the requirements.txt document.
 
-Thank you for checking my work! i am open for any suggestion to improve it!
+Thank you for checking my work! I am open for any suggestion to improve it!
