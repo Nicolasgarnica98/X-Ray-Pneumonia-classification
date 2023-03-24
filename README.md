@@ -1,4 +1,4 @@
-##Chest X-Ray Image Pneumonia classification
+# Chest X-Ray Image Pneumonia classification
 ***
 
 Classification of x-ray images from different patients. The dataset contains the classes:
