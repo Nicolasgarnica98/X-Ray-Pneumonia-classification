@@ -48,6 +48,12 @@ class pre_processing:
         elif type_data == 'labels':
             gs_array = np.array(array)
         print(gs_array.shape)
-
         return gs_array
+
+    def VGG16_preprocessing(img_array):
+        import tensorflow as tf
+        pp_img_array = tf.keras.applications.vgg16.preprocess_input(img_array)
+        return pp_img_array
+
+        
 
