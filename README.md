@@ -6,7 +6,9 @@ Classification of x-ray images from different patients. The dataset contains the
 - Virus
 - Bacteria
 
-This project will classify the images with a trained CNN model. To execute it, download the code and run the Main.py script. It will
+
+
+The aim for this project is to create a model to classify images in the 3 different classes on the dataset, thus a CNN model has been created for this porpouse. To execute the code, download the code and run the Main.py script. It will
 download the alredy curated (by me) dataset from OneDrive. The original dataset can be found in: https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia
 
 After download the dataset, it will ask to provide a name for the model to train/load. the saving extension is added by code, just add the name you would like for this model and it will automaticaly save it with its training history.
