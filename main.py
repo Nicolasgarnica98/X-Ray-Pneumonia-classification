@@ -14,17 +14,20 @@ from model_processing import CNN_Model
 def main():
     #Define a model name to be trained/loaded
     #Model parameters
+    
+    #if there is no dataset, it will automatically download the dataset from OneDrive into the main folder
+    #and unzip it
+    if os.path.exists('./dataset') == False:
+        compressed_dataset = get_dataset.download('https://1drv.ms/u/s!Aocxj1Hi_hVIlu97MFww798zGMnF0g?e=f3jRsO')
+        get_dataset.unzip_dataset(compressed_dataset)
+        df_img = glob.glob(os.path.join('dataset/chest_xray/','*.jpeg'))
+        get_dataset.data_class_balance(df_img)
+        get_dataset.divide_dataset_in_folders(df_img)
+
+    #It creates an instance of the CNN_Model with the name provided.
     model_name = str(input('Insert a name for the model to load/train: '))
     epochs = int(input('Insert a number of epochs: '))
     image_resize = int(input('Insert size value for the image reshape (N x N): '))
-    #if there is no dataset, it will automatically download the dataset from OneDrive into the main folder
-    #and unzip it
-    compressed_dataset = get_dataset.download('https://1drv.ms/u/s!Aocxj1Hi_hVIldsmWIMj9AcU2MH7hw?e=Z4FxiE')
-    get_dataset.unzip_dataset(compressed_dataset)
-    df_img = glob.glob(os.path.join('dataset/*.jpeg'))
-    get_dataset.data_class_balance(df_img)
-
-    #It creates an instance of the CNN_Model with the name provided.
     Actual_Model = None
 
     #If training is true

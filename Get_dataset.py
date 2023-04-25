@@ -73,25 +73,71 @@ class get_dataset:
         return img_array
     
     def data_class_balance(df_img):
-        len_df_virus = df_img.count('virus')
-        len_df_bacteria = df_img.count('bacteria')
-        len_df_normal = len(df_img)-(len_df_virus+len_df_bacteria)
-        print(len_df_virus, len_df_bacteria, len_df_normal)
+        len_df_virus = 0
+        len_df_bacteria = 0
+        len_df_normal = 0
+        df_bact = []
+        df_virus = []
+        df_normal = []
+        for i in range(0,len(df_img)):
+            if df_img[i].find('virus')!=-1:
+                len_df_virus += 1
+                df_virus.append(df_img[i])
+            elif df_img[i].find('bacteria')!=-1:
+                len_df_bacteria += 1
+                df_bact.append(df_img[i])
+            else:
+                len_df_normal += 1
+                df_normal.append(df_img[i])
+        
+        num_samples_per_class = {'virus':len_df_virus, 'bacteria':len_df_bacteria, 'Normal':len_df_normal}
+        print('Samples per class before balance -> ', num_samples_per_class)
+
+        for i in range(0,(len_df_bacteria-len_df_virus)):
+            random_df_bact_index = np.random.randint(0, len(df_bact))
+            os.remove(df_bact[random_df_bact_index])
+            df_bact.pop(random_df_bact_index)
+
+        for i in range(0,(len_df_normal-len_df_virus)):
+            random_df_normal_index = np.random.randint(0, len(df_normal))
+            os.remove(df_normal[random_df_normal_index])
+            df_normal.pop(random_df_normal_index)
+
+        len_df_virus = 0
+        len_df_bacteria = 0
+        len_df_normal = 0
+        for i in range(0,len(df_img)):
+                    if df_img[i].find('virus')!=-1:
+                        len_df_virus += 1
+                        df_virus.append(df_img[i])
+                    elif df_img[i].find('bacteria')!=-1:
+                        len_df_bacteria += 1
+                        df_bact.append(df_img[i])
+                    else:
+                        len_df_normal += 1
+                        df_normal.append(df_img[i])
+                        
+        num_samples_per_class = {'virus':len_df_virus, 'bacteria':len_df_bacteria, 'Normal':len_df_normal}
+        print('Samples per class before balance -> ', num_samples_per_class)
+
 
     def divide_dataset_in_folders(df_img):
-        os.mkdir('./dataset/train')
-        os.mkdir('./dataset/test')
-        os.mkdir('./dataset/val')
-        df_train, df_test = train_test_split(df_img,test_size=0.15)
-        df_train, df_val = train_test_split(df_train,test_size=0.1)
+        if os.path.exists('./dataset/train') == False:
+            os.mkdir('./dataset/train')
+            os.mkdir('./dataset/test')
+            os.mkdir('./dataset/val')
+            df_train, df_test = train_test_split(df_img,test_size=0.15)
+            df_train, df_val = train_test_split(df_train,test_size=0.1)
 
-        folder_array = ['./dataset/train', './dataset/test', './dataset/val']
-        df_array = [df_train,df_test,df_val]
+            folder_array = ['./dataset/train', './dataset/test', './dataset/val']
+            df_array = [df_train,df_test,df_val]
 
-        for i in tqdm(range(0,len(folder_array)),'Moving files: '):
-            for file in df_array[i]:
-                source = file
-                shutil.move(source, folder_array[i])
+            for i in tqdm(range(0,len(folder_array)),'Moving files: '):
+                for file in df_array[i]:
+                    source = file
+                    shutil.move(source, folder_array[i])
+
+            os.remove('./dataset/chest_xray')
 
     
 
