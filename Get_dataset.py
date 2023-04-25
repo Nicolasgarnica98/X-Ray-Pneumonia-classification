@@ -72,6 +72,12 @@ class get_dataset:
             
         return img_array
     
+    def data_class_balance(df_img):
+        len_df_virus = df_img.count('virus')
+        len_df_bacteria = df_img.count('bacteria')
+        len_df_normal = len(df_img)-(len_df_virus+len_df_bacteria)
+        print(len_df_virus, len_df_bacteria, len_df_normal)
+
     def divide_dataset_in_folders(df_img):
         os.mkdir('./dataset/train')
         os.mkdir('./dataset/test')
@@ -86,6 +92,8 @@ class get_dataset:
             for file in df_array[i]:
                 source = file
                 shutil.move(source, folder_array[i])
+
+    
 
 
     def data_exploration(img_array, labels_txt):

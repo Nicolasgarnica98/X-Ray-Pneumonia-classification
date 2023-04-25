@@ -21,6 +21,8 @@ def main():
     #and unzip it
     compressed_dataset = get_dataset.download('https://1drv.ms/u/s!Aocxj1Hi_hVIldsmWIMj9AcU2MH7hw?e=Z4FxiE')
     get_dataset.unzip_dataset(compressed_dataset)
+    df_img = glob.glob(os.path.join('dataset/*.jpeg'))
+    get_dataset.data_class_balance(df_img)
 
     #It creates an instance of the CNN_Model with the name provided.
     Actual_Model = None
