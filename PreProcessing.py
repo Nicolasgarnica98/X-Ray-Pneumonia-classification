@@ -20,6 +20,14 @@ class pre_processing:
                 gray_img = rgb2gray(gray_img)
             gray_img_array.append(gray_img)
         return gray_img_array
+    
+    def rgb_to_gray_single(img):
+        act_img = img
+        #Check if image is not grayscaled.
+        if len(act_img.shape) > 2:
+            act_img = rgb2gray(act_img)
+        gray_img = act_img
+        return gray_img
 
     #Resize images to the desired size
     def resize_images(x_size, y_size, img_array):
@@ -72,16 +80,14 @@ class My_Custom_Generator(keras.utils.Sequence) :
     self.x_size = x_size
     self.y_size = y_size
     
-    
   def __len__(self) :
     return (np.ceil(len(self.image_filenames) / float(self.batch_size))).astype(int)
-
   
   def __getitem__(self, idx) :
     batch_x = self.image_filenames[idx * self.batch_size : (idx+1) * self.batch_size]
     batch_y = self.labels[idx * self.batch_size : (idx+1) * self.batch_size]
     
-    return np.array([pre_processing.image_normalization_single(resize(rgb2gray(imread(str(file_name))), (self.x_size, self.y_size, 3))) for file_name in batch_x]), np.array(batch_y)
+    return np.array([pre_processing.image_normalization_single(resize(pre_processing.rgb_to_gray_single(imread(str(file_name))), (self.x_size, self.y_size, 3))) for file_name in batch_x]), np.array(batch_y)
 
         
 
