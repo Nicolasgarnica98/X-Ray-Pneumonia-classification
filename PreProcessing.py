@@ -61,13 +61,11 @@ class pre_processing:
     #Change image array dimension in order to fit the Tnesorflow standarized input shape
     def get_input_shape(array, type_data):
         
-        print(f'Getting the correct input shape for {type_data}...')
         if type_data == 'image array input':
             gs_array = np.array(array)
             gs_array = np.expand_dims(gs_array,-1)
         elif type_data == 'labels':
             gs_array = np.array(array)
-        print(gs_array.shape)
         return gs_array
 
 
@@ -87,7 +85,9 @@ class My_Custom_Generator(keras.utils.Sequence) :
     batch_x = self.image_filenames[idx * self.batch_size : (idx+1) * self.batch_size]
     batch_y = self.labels[idx * self.batch_size : (idx+1) * self.batch_size]
     
-    return np.array([pre_processing.image_normalization_single(resize(pre_processing.rgb_to_gray_single(imread(str(file_name))), (self.x_size, self.y_size, 3))) for file_name in batch_x]), np.array(batch_y)
+    return pre_processing.get_input_shape(np.array(
+        [pre_processing.image_normalization_single(resize(pre_processing.rgb_to_gray_single(imread(str(file_name))), 
+                                                          (self.x_size, self.y_size))) for file_name in batch_x]),'image array input'), np.array(batch_y)
 
         
 

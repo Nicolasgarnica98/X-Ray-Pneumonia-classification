@@ -13,15 +13,16 @@ from keras.layers import Input, Dense, Conv2D, BatchNormalization, Dropout, MaxP
 
 class CNN_Model():
 
-    def __init__(self, model_name, epochs):
+    def __init__(self, model_name, epochs, batch_size):
         self.model_name = model_name
         self.epochs = epochs
+        self.batch_size = batch_size
 
-    def train_model(self, train_array, train_labels,df_val_img, lbl_val):
+    def train_model(self, input_shape, train_generator, val_generator, train_lbl, val_lbl):
 
-        num_classes = len(np.unique(train_labels))
+        num_classes = len(np.unique(train_lbl))
 
-        i = Input(shape=train_array[0].shape)
+        i = Input(shape=input_shape)
         x = Conv2D(filters=32, kernel_size=(3,3), activation='relu',padding='same')(i)
         x = BatchNormalization()(x)
         x = MaxPooling2D(pool_size=(2,2))(x)
@@ -30,13 +31,13 @@ class CNN_Model():
         x = BatchNormalization()(x)
         x = MaxPooling2D(pool_size=(2,2))(x)
 
-        x = Conv2D(filters=128, kernel_size=(3,3), activation='relu',padding='same')(x)
-        x = BatchNormalization()(x)
-        x = MaxPooling2D(pool_size=(2,2))(x)
+        # x = Conv2D(filters=128, kernel_size=(3,3), activation='relu',padding='same')(x)
+        # x = BatchNormalization()(x)
+        # x = MaxPooling2D(pool_size=(2,2))(x)
 
         x = Flatten()(x)
         x = Dense(units=1024, activation='relu')(x)
-        x = Dropout(0.45)(x)
+        x = Dropout(0.2)(x)
         # x = Dense(units=500,activation='relu')(x)
         # x = Dropout(0.3)(x)
         x = Dense(units=512,activation='relu')(x)
@@ -47,7 +48,7 @@ class CNN_Model():
 
         model = Model(i,x)
         model.compile(optimizer='adam',loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-        result = model.fit(x=train_array,y=train_labels,epochs=self.epochs,batch_size=32,validation_data=(df_val_img,lbl_val))
+        result = model.fit(train_generator, epochs=self.epochs, steps_per_epoch=int(len(train_lbl)//self.batch_size), validation_data=val_generator, validation_steps=int(len(val_lbl)//self.batch_size))
         model.save(f'./saved models/{self.model_name}_SavedModel.h5')
         np.save(f'./saved train-history/{self.model_name}_SavedTrainHistory.npy',result.history)
 

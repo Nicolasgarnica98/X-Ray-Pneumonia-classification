@@ -6,7 +6,7 @@ import glob
 import os
 import tensorflow as tf 
 from Get_dataset import get_dataset
-from PreProcessing import pre_processing
+from PreProcessing import pre_processing, My_Custom_Generator
 from model_processing import CNN_Model
 
 #Main method: it will call all the necessary functions from the other scripts in order to train/validate or test
@@ -28,6 +28,7 @@ def main():
     model_name = str(input('Insert a name for the model to load/train: '))
     epochs = int(input('Insert a number of epochs: '))
     image_resize = int(input('Insert size value for the image reshape (N x N): '))
+    batch_size = int(input('Insert batch size: '))
     Actual_Model = None
 
     #If training is true
@@ -47,38 +48,42 @@ def main():
             print(len(df_val))
             val_lbl, val_lbl_txt = get_dataset.get_labels(df_val)
 
-            #Load images from the path names
-            train_IMG = get_dataset.load_images(df_train)
-            val_IMG = get_dataset.load_images(df_val)
+            # #Load images from the path names
+            # train_IMG = get_dataset.load_images(df_train)
+            # val_IMG = get_dataset.load_images(df_val)
             #Explore the train dataset
-            get_dataset.data_exploration(train_IMG,train_lbl_txt)
+            # get_dataset.data_exploration(train_IMG,train_lbl_txt)
 
-            #Pre-processing: RGB2GRAY transformations to images in non-graysacale color space.
-            #Regularization of images that have values outside of [0,1]
-            #Reshaping the image for size uniformity
-            train_IMG = pre_processing.rgb_to_gray(train_IMG)
-            train_IMG = pre_processing.resize_images(image_resize,image_resize,train_IMG)
-            train_IMG = pre_processing.image_normalization(train_IMG)
+            # #Pre-processing: RGB2GRAY transformations to images in non-graysacale color space.
+            # #Regularization of images that have values outside of [0,1]
+            # #Reshaping the image for size uniformity
+            # train_IMG = pre_processing.rgb_to_gray(train_IMG)
+            # train_IMG = pre_processing.resize_images(image_resize,image_resize,train_IMG)
+            # train_IMG = pre_processing.image_normalization(train_IMG)
 
-            #Change the input array shape for preparing it for the CNN input
-            train_IMG = pre_processing.get_input_shape(train_IMG,'image array input')
-            train_lbl = pre_processing.get_input_shape(train_lbl,'labels')
+            # #Change the input array shape for preparing it for the CNN input
+            # train_IMG = pre_processing.get_input_shape(train_IMG,'image array input')
+            # train_lbl = pre_processing.get_input_shape(train_lbl,'labels')
 
-            val_IMG = pre_processing.rgb_to_gray(val_IMG)
-            val_IMG = pre_processing.resize_images(image_resize,image_resize,val_IMG)
-            val_IMG = pre_processing.image_normalization(val_IMG)
+            # val_IMG = pre_processing.rgb_to_gray(val_IMG)
+            # val_IMG = pre_processing.resize_images(image_resize,image_resize,val_IMG)
+            # val_IMG = pre_processing.image_normalization(val_IMG)
 
-            #Change the input array shape for preparing it for the CNN input
-            val_IMG = pre_processing.get_input_shape(val_IMG,'image array input')
-            val_lbl = pre_processing.get_input_shape(val_lbl,'labels')
+            # #Change the input array shape for preparing it for the CNN input
+            # val_IMG = pre_processing.get_input_shape(val_IMG,'image array input')
+            # val_lbl = pre_processing.get_input_shape(val_lbl,'labels')
+
+            training_batch_generator = My_Custom_Generator(df_train,train_lbl,batch_size=batch_size, x_size=image_resize, y_size=image_resize)
+            val_batch_generator = My_Custom_Generator(df_val,val_lbl,batch_size=batch_size, x_size=image_resize, y_size=image_resize)
+            model.train_model(input_shape=(image_resize,image_resize,1), train_lbl=train_lbl, train_generator=training_batch_generator, val_generator=val_batch_generator, val_lbl=val_lbl)
 
             #Train the CNN model with the instance of the model created before.
-            model.train_model(train_IMG,train_lbl,val_IMG,val_lbl)
+            # model.train_model(train_IMG,train_lbl,val_IMG,val_lbl)
 
 
     choose_model = str(input('Choose model from -> CNN_Model: '))
     if choose_model == 'CNN_Model':
-        Actual_Model = CNN_Model(model_name=model_name, epochs=epochs)
+        Actual_Model = CNN_Model(model_name=model_name, epochs=epochs, batch_size=batch_size)
 
     #Check for the name of the model. If it exist it will ask if train again or not, if not, it will
     #train the model and saved with the provided name. If no folders, it will create two folders, one for the
