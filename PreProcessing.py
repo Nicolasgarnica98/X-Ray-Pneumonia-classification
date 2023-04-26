@@ -1,7 +1,11 @@
+import keras
 import numpy as np
 from tqdm import tqdm
+from skimage.io import imread
 from skimage.color import rgb2gray
 from skimage.transform import resize
+
+
 
 class pre_processing:
     
@@ -37,6 +41,14 @@ class pre_processing:
                 act_img = act_img/255
             norm_img_array.append(act_img)
         return(norm_img_array)
+    
+    def image_normalization_single(img):
+        act_img = img
+        #Check if image is not already normalized
+        if np.max(act_img)>1:
+            act_img = act_img/255
+        norm_img = act_img
+        return norm_img
 
     #Change image array dimension in order to fit the Tnesorflow standarized input shape
     def get_input_shape(array, type_data):
@@ -50,6 +62,26 @@ class pre_processing:
         print(gs_array.shape)
         return gs_array
 
+
+class My_Custom_Generator(keras.utils.Sequence) :
+  
+  def __init__(self, image_filenames, labels, batch_size, x_size, y_size) :
+    self.image_filenames = image_filenames
+    self.labels = labels
+    self.batch_size = batch_size
+    self.x_size = x_size
+    self.y_size = y_size
+    
+    
+  def __len__(self) :
+    return (np.ceil(len(self.image_filenames) / float(self.batch_size))).astype(int)
+
+  
+  def __getitem__(self, idx) :
+    batch_x = self.image_filenames[idx * self.batch_size : (idx+1) * self.batch_size]
+    batch_y = self.labels[idx * self.batch_size : (idx+1) * self.batch_size]
+    
+    return np.array([pre_processing.image_normalization_single(resize(rgb2gray(imread(str(file_name))), (self.x_size, self.y_size, 3))) for file_name in batch_x]), np.array(batch_y)
 
         
 

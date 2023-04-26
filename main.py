@@ -12,8 +12,7 @@ from model_processing import CNN_Model
 #Main method: it will call all the necessary functions from the other scripts in order to train/validate or test
 #a model. in case of training, it will create an instance of the CNN_Model class and train the data.
 def main():
-    #Define a model name to be trained/loaded
-    #Model parameters
+
     
     #if there is no dataset, it will automatically download the dataset from OneDrive into the main folder
     #and unzip it
@@ -24,7 +23,8 @@ def main():
         get_dataset.data_class_balance(df_img)
         get_dataset.divide_dataset_in_folders(df_img)
 
-    #It creates an instance of the CNN_Model with the name provided.
+    #Define a model name to be trained/loaded
+    #Model parameters
     model_name = str(input('Insert a name for the model to load/train: '))
     epochs = int(input('Insert a number of epochs: '))
     image_resize = int(input('Insert size value for the image reshape (N x N): '))
