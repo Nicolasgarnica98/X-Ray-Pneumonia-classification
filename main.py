@@ -12,7 +12,6 @@ from model_processing import CNN_Model
 #Main method: it will call all the necessary functions from the other scripts in order to train/validate or test
 #a model. in case of training, it will create an instance of the CNN_Model class and train the data.
 def main():
-
     
     #if there is no dataset, it will automatically download the dataset from OneDrive into the main folder
     #and unzip it
@@ -73,8 +72,11 @@ def main():
             # val_IMG = pre_processing.get_input_shape(val_IMG,'image array input')
             # val_lbl = pre_processing.get_input_shape(val_lbl,'labels')
 
+            #Create a data batch generator loader for train and validation sets
             training_batch_generator = My_Custom_Generator(df_train,train_lbl,batch_size=batch_size, x_size=image_resize, y_size=image_resize)
             val_batch_generator = My_Custom_Generator(df_val,val_lbl,batch_size=batch_size, x_size=image_resize, y_size=image_resize)
+
+            #Train the model
             model.train_model(input_shape=(image_resize,image_resize,1), train_lbl=train_lbl, train_generator=training_batch_generator, val_generator=val_batch_generator, val_lbl=val_lbl)
 
             #Train the CNN model with the instance of the model created before.
