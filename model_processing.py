@@ -13,12 +13,11 @@ from keras.layers import Input, Dense, Conv2D, BatchNormalization, Dropout, MaxP
 
 class CNN_Model():
 
-    def __init__(self, model_name, epochs, batch_size):
+    def __init__(self, model_name, epochs,):
         self.model_name = model_name
         self.epochs = epochs
-        self.batch_size = batch_size
 
-    def train_model(self, input_shape, train_generator, val_generator, train_lbl, val_lbl):
+    def train_model(self, input_shape, train_img, val_img, train_lbl, val_lbl):
 
         num_classes = len(np.unique(train_lbl))
 
@@ -48,7 +47,7 @@ class CNN_Model():
 
         model = Model(i,x)
         model.compile(optimizer='adam',loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-        result = model.fit(train_generator, epochs=self.epochs, steps_per_epoch=int(len(train_lbl)//self.batch_size), validation_data=val_generator, validation_steps=int(len(val_lbl)//self.batch_size))
+        result = model.fit(train_img,train_lbl, epochs=self.epochs, validation_data=(val_img,val_lbl))
         model.save(f'./saved models/{self.model_name}_SavedModel.h5')
         np.save(f'./saved train-history/{self.model_name}_SavedTrainHistory.npy',result.history)
 

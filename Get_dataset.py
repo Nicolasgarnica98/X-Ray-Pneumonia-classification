@@ -139,11 +139,8 @@ class get_dataset:
 
             os.remove('./dataset/chest_xray')
 
-    
-
 
     def data_exploration(img_array, labels_txt):
-        fig1, ax1 = plt.subplots(2,3)
         plot_img = []
         plot_lbl = []
         for i in range(0,6):
