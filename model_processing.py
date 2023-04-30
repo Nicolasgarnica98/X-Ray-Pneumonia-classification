@@ -35,19 +35,19 @@ class CNN_Model():
         # x = MaxPooling2D(pool_size=(2,2))(x)
 
         x = Flatten()(x)
-        x = Dense(units=1024, activation='relu')(x)
-        x = Dropout(0.2)(x)
+        # x = Dense(units=1024, activation='relu')(x)
+        # x = Dropout(0.2)(x)
         # x = Dense(units=500,activation='relu')(x)
         # x = Dropout(0.3)(x)
         x = Dense(units=512,activation='relu')(x)
         x = Dropout(0.2)(x)
-        x = Dense(units=50,activation='relu')(x)
+        x = Dense(units=64,activation='relu')(x)
         x = Dropout(0.1)(x)
         x = Dense(num_classes, activation='softmax')(x)
 
         model = Model(i,x)
         model.compile(optimizer='adam',loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-        result = model.fit(train_img,train_lbl, epochs=self.epochs, validation_data=(val_img,val_lbl))
+        result = model.fit(train_img,train_lbl, epochs=self.epochs, validation_data=(val_img,val_lbl), batch_size=32)
         model.save(f'./saved models/{self.model_name}_SavedModel.h5')
         np.save(f'./saved train-history/{self.model_name}_SavedTrainHistory.npy',result.history)
 

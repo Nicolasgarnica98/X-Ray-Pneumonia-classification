@@ -44,9 +44,8 @@ class pre_processing:
 
     #Change image array dimension in order to fit the Tnesorflow standarized input shape
     def get_input_shape(array, type_data):
-        
         if type_data == 'image array input':
-            gs_array = np.array(array)
+            gs_array = np.array(array, dtype=np.float32)
             gs_array = np.expand_dims(gs_array,-1)
         elif type_data == 'labels':
             gs_array = np.array(array)

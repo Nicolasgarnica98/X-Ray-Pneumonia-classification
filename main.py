@@ -8,6 +8,7 @@ import tensorflow as tf
 from Get_dataset import get_dataset
 from PreProcessing import pre_processing
 from model_processing import CNN_Model
+import numpy as np
 
 #Main method: it will call all the necessary functions from the other scripts in order to train/validate or test
 #a model. in case of training, it will create an instance of the CNN_Model class and train the data.
@@ -29,8 +30,8 @@ def main():
     # image_resize = int(input('Insert size value for the image reshape (N x N): '))
     # batch_size = int(input('Insert batch size: '))
     Actual_Model = None
-    epochs = 30
-    image_resize = 180
+    epochs = 50
+    image_resize = (220,220)
 
     #If training is true
     def train_pipeline(model):
@@ -59,7 +60,7 @@ def main():
             #Regularization of images that have values outside of [0,1]
             #Reshaping the image for size uniformity
             train_IMG = pre_processing.rgb_to_gray(train_IMG)
-            train_IMG = pre_processing.resize_images(image_resize,image_resize,train_IMG)
+            train_IMG = pre_processing.resize_images(image_resize[0],image_resize[1],train_IMG)
             train_IMG = pre_processing.image_normalization(train_IMG)
 
             #Change the input array shape for preparing it for the CNN input
@@ -67,15 +68,16 @@ def main():
             train_lbl = pre_processing.get_input_shape(train_lbl,'labels')
 
             val_IMG = pre_processing.rgb_to_gray(val_IMG)
-            val_IMG = pre_processing.resize_images(image_resize,image_resize,val_IMG)
+            val_IMG = pre_processing.resize_images(image_resize[0],image_resize[1],val_IMG)
             val_IMG = pre_processing.image_normalization(val_IMG)
 
             #Change the input array shape for preparing it for the CNN input
             val_IMG = pre_processing.get_input_shape(val_IMG,'image array input')
             val_lbl = pre_processing.get_input_shape(val_lbl,'labels')
+            print(train_IMG.dtype)
 
             #Train the model
-            model.train_model(input_shape=(image_resize,image_resize,1), train_lbl=train_lbl, train_img=train_IMG, val_img=val_IMG, val_lbl=val_lbl)
+            model.train_model(input_shape=(image_resize[0],image_resize[1],1), train_lbl=train_lbl, train_img=train_IMG, val_img=val_IMG, val_lbl=val_lbl)
 
 
     choose_model = str(input('Choose model from -> CNN_Model: '))
@@ -114,7 +116,7 @@ def main():
     if choose_model == 'CNN_Model':
         test_IMG = pre_processing.rgb_to_gray(test_IMG)
         test_IMG = pre_processing.image_normalization(test_IMG)
-        test_IMG = pre_processing.resize_images(image_resize,image_resize,test_IMG)
+        test_IMG = pre_processing.resize_images(image_resize[0],image_resize[1],test_IMG)
         #Change the input array shape for preparing it for model prediction input
         test_IMG = pre_processing.get_input_shape(test_IMG,'image array input')
         test_lbl = pre_processing.get_input_shape(test_lbl,'labels')
