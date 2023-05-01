@@ -30,14 +30,11 @@ class get_dataset:
             print('\n')
             return r
 
-
-
     def unzip_dataset(dataset_comp):
         if dataset_comp != None:
             with ZipFile(dataset_comp,'r') as zip_object:
                 zip_object.extractall(path='./dataset/')
             os.remove(dataset_comp)
-
 
     def get_labels(df):
         labels = []
@@ -71,7 +68,7 @@ class get_dataset:
             img_array.append(imread(df_img[i]))
             
         return img_array
-    
+
     def data_class_balance(df_img):
         len_df_virus = 0
         len_df_bacteria = 0
@@ -106,6 +103,9 @@ class get_dataset:
         len_df_virus = 0
         len_df_bacteria = 0
         len_df_normal = 0
+        df_bact = []
+        df_virus = []
+        df_normal = []
         for i in range(0,len(df_img)):
                     if df_img[i].find('virus')!=-1:
                         len_df_virus += 1
@@ -118,8 +118,7 @@ class get_dataset:
                         df_normal.append(df_img[i])
                         
         num_samples_per_class = {'virus':len_df_virus, 'bacteria':len_df_bacteria, 'Normal':len_df_normal}
-        print('Samples per class before balance -> ', num_samples_per_class)
-
+        print('Samples per class after balance -> ', num_samples_per_class)
 
     def divide_dataset_in_folders(df_img):
         if os.path.exists('./dataset/train') == False:
@@ -133,10 +132,17 @@ class get_dataset:
             df_array = [df_train,df_test,df_val]
 
             for i in tqdm(range(0,len(folder_array)),'Moving files: '):
+                os.mkdir(folder_array[i]+ '/normal')
+                os.mkdir(folder_array[i]+'/bacteria')
+                os.mkdir(folder_array[i]+'/virus')
                 for file in df_array[i]:
                     source = file
-                    shutil.move(source, folder_array[i])
-
+                    if source.find('virus')!=-1:
+                        shutil.move(source, folder_array[i]+'/virus')
+                    elif source.find('bacteria')!=-1:
+                        shutil.move(source, folder_array[i]+'/bacteria')
+                    else:
+                        shutil.move(source, folder_array[i]+'/normal')
             os.remove('./dataset/chest_xray')
 
 

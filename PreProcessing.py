@@ -4,7 +4,7 @@ from tqdm import tqdm
 from skimage.io import imread
 from skimage.color import rgb2gray
 from skimage.transform import resize
-
+from keras.preprocessing.image import ImageDataGenerator
 
 
 class pre_processing:
@@ -31,7 +31,7 @@ class pre_processing:
         return rs_img_array
 
     #Image normalization between [0,1]
-    def image_normalization(img_array):
+    def image_normalization_(img_array):
         norm_img_array = []
         act_img = None
         for i in tqdm(range(0,len(img_array)),'Normalizing images'):
@@ -44,13 +44,25 @@ class pre_processing:
 
     #Change image array dimension in order to fit the Tnesorflow standarized input shape
     def get_input_shape(array, type_data):
-        
         if type_data == 'image array input':
-            gs_array = np.array(array)
+            gs_array = np.array(array, dtype=np.float32)
             gs_array = np.expand_dims(gs_array,-1)
         elif type_data == 'labels':
             gs_array = np.array(array)
         return gs_array
 
+        #Image normalization between [0,1]
+    def image_preprocessing_single(img):
+        #Check if image is not already normalized
+        if np.max(img)>1:
+            img = img/255
+        return img
         
+class batch_loader():
 
+    def __init__(self):
+        pass
+
+    def image_data_generator():
+        train_datagen = ImageDataGenerator(preprocessing_function=pre_processing.image_preprocessing_single)
+        generator = train_datagen.flow_from_directory()
