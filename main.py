@@ -31,8 +31,8 @@ def main():
     # # image_resize = int(input('Insert size value for the image reshape (N x N): '))
     # # batch_size = int(input('Insert batch size: '))
     # Actual_Model = None
-    # epochs = 50
-    # image_resize = (220,220)
+    # epochs = 30
+    # image_resize = 180
 
     # #If training is true
     # def train_pipeline(model):
@@ -59,28 +59,27 @@ def main():
     #         # Explore the train dataset
     #         get_dataset.data_exploration(train_IMG,train_lbl_txt)
 
-    #         #Pre-processing: RGB2GRAY transformations to images in non-graysacale color space.
-    #         #Regularization of images that have values outside of [0,1]
-    #         #Reshaping the image for size uniformity
-    #         train_IMG = pre_processing.rgb_to_gray(train_IMG)
-    #         train_IMG = pre_processing.resize_images(image_resize[0],image_resize[1],train_IMG)
-    #         train_IMG = pre_processing.image_normalization(train_IMG)
+            #Pre-processing: RGB2GRAY transformations to images in non-graysacale color space.
+            #Regularization of images that have values outside of [0,1]
+            #Reshaping the image for size uniformity
+            # train_IMG = pre_processing.rgb_to_gray(train_IMG)
+            # train_IMG = pre_processing.resize_images(image_resize,image_resize,train_IMG)
+            # train_IMG = pre_processing.image_normalization(train_IMG)
 
     #         #Change the input array shape for preparing it for the CNN input
     #         train_IMG = pre_processing.get_input_shape(train_IMG,'image array input')
     #         train_lbl = pre_processing.get_input_shape(train_lbl,'labels')
 
-    #         val_IMG = pre_processing.rgb_to_gray(val_IMG)
-    #         val_IMG = pre_processing.resize_images(image_resize[0],image_resize[1],val_IMG)
-    #         val_IMG = pre_processing.image_normalization(val_IMG)
+            # val_IMG = pre_processing.rgb_to_gray(val_IMG)
+            # val_IMG = pre_processing.resize_images(image_resize,image_resize,val_IMG)
+            # val_IMG = pre_processing.image_normalization(val_IMG)
 
-    #         #Change the input array shape for preparing it for the CNN input
-    #         val_IMG = pre_processing.get_input_shape(val_IMG,'image array input')
-    #         val_lbl = pre_processing.get_input_shape(val_lbl,'labels')
-    #         print(train_IMG.dtype)
+            # #Change the input array shape for preparing it for the CNN input
+            # val_IMG = pre_processing.get_input_shape(val_IMG,'image array input')
+            # val_lbl = pre_processing.get_input_shape(val_lbl,'labels')
 
-    #         #Train the model
-    #         model.train_model(input_shape=(image_resize[0],image_resize[1],1), train_lbl=train_lbl, train_img=train_IMG, val_img=val_IMG, val_lbl=val_lbl)
+            # #Train the model
+            # model.train_model(input_shape=(image_resize,image_resize,1), train_lbl=train_lbl, train_img=train_IMG, val_img=val_IMG, val_lbl=val_lbl)
 
 
     # choose_model = str(input('Choose model from -> CNN_Model: '))
@@ -107,8 +106,8 @@ def main():
     # Actual_Model.get_model_summary()
 
 
-    # #Test the model
-    # #Load the test dataset and load images
+    #Test the model
+    #Load the test dataset and load images
     # df_test = glob.glob(os.path.join('dataset/test/','*.jpeg'))
     # print(f'Testing model "{model_name}"...')
     # #Load test images
@@ -119,7 +118,7 @@ def main():
     # if choose_model == 'CNN_Model':
     #     test_IMG = pre_processing.rgb_to_gray(test_IMG)
     #     test_IMG = pre_processing.image_normalization(test_IMG)
-    #     test_IMG = pre_processing.resize_images(image_resize[0],image_resize[1],test_IMG)
+    #     test_IMG = pre_processing.resize_images(image_resize,image_resize,test_IMG)
     #     #Change the input array shape for preparing it for model prediction input
     #     test_IMG = pre_processing.get_input_shape(test_IMG,'image array input')
     #     test_lbl = pre_processing.get_input_shape(test_lbl,'labels')
