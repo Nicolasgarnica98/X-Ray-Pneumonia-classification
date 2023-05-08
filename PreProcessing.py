@@ -1,4 +1,3 @@
-import keras
 import numpy as np
 from tqdm import tqdm
 from skimage.io import imread
