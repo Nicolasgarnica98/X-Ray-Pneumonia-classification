@@ -193,16 +193,14 @@ def get_input_shape(array, type_data):
 The model used for the image size 32px was:
 
 <p align="center">
-  <img width="450" height="350" src="Document_resources/CNN_32px_test1_ModelSummary.jpg">
-  <img width="470" height="350" src="Document_resources/CNN_32px_test1_trainPerformance.png">
+  <img width="750" height="250" src="Document_resources/CNN_32px_test1_ModelSummary1.jpg">
 </p>
 
 
 After testing with the trained model and with the test images already pre-processed:
 
 <p align="center">
-  <img width="650" height="550" src="Document_resources/CNN_32px_test1.png">
-  <img width="470" height="200" src="Document_resources/CNN_32px_Test1_metrics.jpg">
+  <img width="850" height="350" src="Document_resources/CNN_32px_Test1_metrics1.jpg">
 </p>
 <br>
 
@@ -211,16 +209,14 @@ After testing with the trained model and with the test images already pre-proces
 The model used for the image size 128px was:
 
 <p align="center">
-  <img width="600" height="900" src="Document_resources/CNN_128px_test1_ModelSummary.jpg">
-  <img width="600" height="450" src="Document_resources/CNN_128px_test1_trainPerformance.png">
+    <img width="750" height="250" src="Document_resources/CNN_128px_test1_ModelSummary1.jpg">
 </p>
 
 
 After testing with the trained model and with the test images already pre-processed:
 
 <p align="center">
-  <img width="650" height="550" src="Document_resources/CNN_128px_test1.png">
-  <img width="470" height="180" src="Document_resources/CNN_128px_Test1_metrics.jpg">
+    <img width="850" height="350" src="Document_resources\CNN_128px_Test1_metrics1.jpg">
 </p>
 <br>
 
