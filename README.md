@@ -9,7 +9,7 @@ Evaluation and diagnosis of the disease are always important parts of the treatm
 
 <br>
 <p align="center">
-  <img width="600" height="350" src="pneumonia_example.jpg">
+  <img width="600" height="350" src="Document_resources/pneumonia_example.jpg">
 </p>
 <br>
 The treatment for pneumonia will depend on the origin of the pathogen, and to determine the origin, the doctor will request a tissue sample or mucus sample from the lungs in order to make a bacteria culture or a viral detection. This process takes some time and is uncomfortable for the patient. Determining the kind of pathogen is essential because if it is bacteria, it could be treated with antibiotics, which would not work with virus infections.
@@ -81,7 +81,7 @@ def data_exploration(img_array, labels_txt):
         plt.show()y   
  ````
 <p align="center">
-  <img width="600" height="450" src="Dataset_exploration.png">
+  <img width="600" height="450" src="Document_resources/Dataset_exploration.png">
 </p>
 <br>
 
@@ -193,16 +193,16 @@ def get_input_shape(array, type_data):
 The model used for the image size 32px was:
 
 <p align="center">
-  <img width="450" height="350" src="CNN_32px_test1_ModelSummary.jpg">
-  <img width="470" height="350" src="CNN_32px_test1_trainPerformance.png">
+  <img width="450" height="350" src="Document_resources/CNN_32px_test1_ModelSummary.jpg">
+  <img width="470" height="350" src="Document_resources/CNN_32px_test1_trainPerformance.png">
 </p>
 
 
 After testing with the trained model and with the test images already pre-processed:
 
 <p align="center">
-  <img width="650" height="550" src="CNN_32px_test1.png">
-  <img width="470" height="200" src="CNN_32px_Test1_metrics.jpg">
+  <img width="650" height="550" src="Document_resources/CNN_32px_test1.png">
+  <img width="470" height="200" src="Document_resources/CNN_32px_Test1_metrics.jpg">
 </p>
 <br>
 
@@ -211,16 +211,16 @@ After testing with the trained model and with the test images already pre-proces
 The model used for the image size 128px was:
 
 <p align="center">
-  <img width="600" height="900" src="CNN_128px_test1_ModelSummary.jpg">
-  <img width="600" height="450" src="CNN_128px_test1_trainPerformance.png">
+  <img width="600" height="900" src="Document_resources/CNN_128px_test1_ModelSummary.jpg">
+  <img width="600" height="450" src="Document_resources/CNN_128px_test1_trainPerformance.png">
 </p>
 
 
 After testing with the trained model and with the test images already pre-processed:
 
 <p align="center">
-  <img width="650" height="550" src="CNN_128px_test1.png">
-  <img width="470" height="180" src="CNN_128px_Test1_metrics.jpg">
+  <img width="650" height="550" src="Document_resources/CNN_128px_test1.png">
+  <img width="470" height="180" src="Document_resources/CNN_128px_Test1_metrics.jpg">
 </p>
 <br>
 
@@ -238,7 +238,7 @@ It seems that both models are suffering from over-fitting when hitting the 80% a
  - Check class invariance. While checking my dataset class distribution I noted that there are big differences in the number of samples per class:
  
 <p align="center">
-  <img width="450" height="130" src="dataset_size.jpg">
+  <img width="450" height="130" src="Document_resources/dataset_size.jpg">
 </p>
 
 - More pre-processing options: I have consider to pad the images into a square frame, thus the image will not have to be forced into a squared shape while allowing the CNN to analyze the images with a "virtual same shape". With this method I expect to avoid information loss, leaving the infected alveoli structures the most intact possible.
