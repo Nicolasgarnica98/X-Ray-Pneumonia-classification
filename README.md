@@ -209,7 +209,7 @@ After testing with the trained model and with the test images already pre-proces
 The model used for the image size 128px was:
 
 <p align="center">
-    <img width="750" height="250" src="Document_resources/CNN_128px_test1_ModelSummary1.jpg">
+    <img width="850" height="340" src="Document_resources/CNN_128px_test1_ModelSummary1.jpg">
 </p>
 
 
