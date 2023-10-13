@@ -5,8 +5,8 @@
 import glob
 import os
 import tensorflow as tf 
-from Get_dataset import get_dataset
-from PreProcessing import pre_processing
+from get_dataset import get_dataset
+from pre_processing import pre_processing
 from model_processing import CNN_Model
 import numpy as np
 
