@@ -38,7 +38,7 @@ class CNN_Model():
         # x = Dropout(0.2)(x)
         # x = Dense(units=500,activation='relu')(x)
         # x = Dropout(0.3)(x)
-        x = Dense(units=512,activation='relu')(x)
+        x = Dense(units=1024,activation='relu')(x)
         x = Dropout(0.2)(x)
         x = Dense(units=64,activation='relu')(x)
         x = Dropout(0.1)(x)
@@ -47,13 +47,13 @@ class CNN_Model():
         model = Model(i,x)
         model.compile(optimizer='adam',loss='sparse_categorical_crossentropy', metrics=['accuracy'])
         result = model.fit(train_img,train_lbl, epochs=self.epochs, validation_data=(val_img,val_lbl), batch_size=32)
-        model.save(f'./saved models/{self.model_name}_SavedModel.h5')
-        np.save(f'./saved train-history/{self.model_name}_SavedTrainHistory.npy',result.history)
+        model.save(f'./model/saved models/{self.model_name}_SavedModel.h5')
+        np.save(f'./model/saved train-history/{self.model_name}_SavedTrainHistory.npy',result.history)
 
 
     def get_train_performance_metrics(self):
         
-        ModelHistory =np.load(f'./saved train-history/{self.model_name}_SavedTrainHistory.npy',allow_pickle='TRUE').item()
+        ModelHistory =np.load(f'./model/saved train-history/{self.model_name}_SavedTrainHistory.npy',allow_pickle='TRUE').item()
         fig1, ax1=plt.subplots(1,2)
         fig1.suptitle(f'{self.model_name} evaluation')
         ax1[0].set_title('Accuracy per epoch')
@@ -75,10 +75,11 @@ class CNN_Model():
 
 
     def model_prediction(self, img_array, lbl):
-        model = tf.keras.models.load_model(f'./saved models/{self.model_name}_SavedModel.h5')
+        model = tf.keras.models.load_model(f'./model/saved models/{self.model_name}_SavedModel.h5')
         prob_predictions = model.predict(img_array)
         predictions = prob_predictions.argmax(axis=1)
         predictions.astype(int)
+
         cm = confusion_matrix(lbl,predictions)
         plt.title('Confusion matrix')
         sn.set(font_scale=1.4)
@@ -87,14 +88,17 @@ class CNN_Model():
         conf = sn.heatmap(cm, annot=True, annot_kws={'size':8}, cmap='Blues',xticklabels=x_axis_labels, yticklabels=y_axis_labels)
         conf.set(xlabel='Predicted class', ylabel='True class')
         conf.tick_params(left=True, bottom=True)
-        metrics = classification_report(lbl,predictions, target_names= x_axis_labels)
-        print(metrics)
         plt.tight_layout()
         plt.show()
+        metrics = classification_report(lbl,predictions, target_names= x_axis_labels)
+        print(metrics)
+        print("Loss of the model is - " , model.evaluate(img_array,lbl)[0])
+        print("Accuracy of the model is - " , np.round(model.evaluate(img_array,lbl)[1]*100,3) , "%")
+
  
  
     def get_model_summary(self):
-           model = tf.keras.models.load_model(f'./saved models/{self.model_name}_SavedModel.h5')
+           model = tf.keras.models.load_model(f'./model/saved models/{self.model_name}_SavedModel.h5')
            print(model.summary())
 
 

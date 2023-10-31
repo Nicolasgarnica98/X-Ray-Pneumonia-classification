@@ -1,0 +1,73 @@
+/* The Modal (background) */
+
+.image_background_div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fefefe;
+    border: 2px solid #000;
+    width: 90%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+  }
+
+  /* Modal Content/Box */
+  .content-div {
+    margin: 5px;
+    flex: 0 0 calc(33.33% - 10px);
+    background-color: #3498db;
+    color: white;
+    text-align: center;
+    width: 70%;
+    height: 100%;
+    margin-left: 2%;
+    margin-right: 2%;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box; /* Include padding in the calculated width */
+    flex-wrap: wrap;    
+  }
+  
+  .img-div {
+    flex: 0 0 calc(33.33% - 10px);
+    background-color: #000;
+    height: 70%;
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+  }
+
+
+  .button{
+    font-size: large;
+    padding: 4%;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .top-label{
+    font-size: large;
+    padding: 3%;
+  }
+  @media (min-width: 712px) {
+    .image_background_div {
+      flex-direction: row;
+      justify-content: space-between;
+      justify-content: center; /* Horizontally center child divs */
+      align-items: center; /* Vertically center child divs */
+      border: 2px solid #fefefe;
+      
+    }
+
+    .content-div{
+      width: 100%;
+      height: 100%;
+    }
+
+  }

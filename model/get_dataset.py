@@ -13,7 +13,7 @@ class get_dataset:
 
     def download(url):
 
-        def create_onedrive_directdownload (onedrive_link):
+        def create_onedrive_directdownload(onedrive_link):
             data_bytes64 = base64.b64encode(bytes(onedrive_link, 'utf-8'))
             data_bytes64_String = data_bytes64.decode('utf-8').replace('/','_').replace('+','-').rstrip("=")
             resultUrl = f"https://api.onedrive.com/v1.0/shares/u!{data_bytes64_String}/root/content"
@@ -132,25 +132,16 @@ class get_dataset:
             df_array = [df_train,df_test,df_val]
 
             for i in tqdm(range(0,len(folder_array)),'Moving files: '):
-                os.mkdir(folder_array[i]+ '/normal')
-                os.mkdir(folder_array[i]+'/bacteria')
-                os.mkdir(folder_array[i]+'/virus')
                 for file in df_array[i]:
-                    source = file
-                    if source.find('virus')!=-1:
-                        shutil.move(source, folder_array[i]+'/virus')
-                    elif source.find('bacteria')!=-1:
-                        shutil.move(source, folder_array[i]+'/bacteria')
-                    else:
-                        shutil.move(source, folder_array[i]+'/normal')
-            os.remove('./dataset/chest_xray')
+                    shutil.move(file, folder_array[i])
+            # os.remove('./dataset/chest_xray')
 
 
     def data_exploration(img_array, labels_txt):
         plot_img = []
         plot_lbl = []
         for i in range(0,6):
-            img_indx = np.random.randint(0,len(img_array)-1)
+            img_indx = np.random.randint(0,len(img_array))
             img = img_array[img_indx]
             img_label = labels_txt[img_indx]
             plot_img.append(img)

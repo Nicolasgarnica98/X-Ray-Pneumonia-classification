@@ -1,6 +1,5 @@
 import numpy as np
 from tqdm import tqdm
-from skimage.io import imread
 from skimage.color import rgb2gray
 from skimage.transform import resize
 from keras.preprocessing.image import ImageDataGenerator
@@ -30,7 +29,7 @@ class pre_processing:
         return rs_img_array
 
     #Image normalization between [0,1]
-    def image_normalization_(img_array):
+    def image_normalization(img_array):
         norm_img_array = []
         act_img = None
         for i in tqdm(range(0,len(img_array)),'Normalizing images'):
@@ -50,7 +49,7 @@ class pre_processing:
             gs_array = np.array(array)
         return gs_array
 
-        #Image normalization between [0,1]
+    #Image normalization between [0,1]
     def image_preprocessing_single(img):
         #Check if image is not already normalized
         if np.max(img)>1:
@@ -65,3 +64,7 @@ class batch_loader():
     def image_data_generator():
         train_datagen = ImageDataGenerator(preprocessing_function=pre_processing.image_preprocessing_single)
         generator = train_datagen.flow_from_directory()
+
+#Save the preprocessing methods
+import pickle
+pickle.dump(pre_processing,open('./model/pre_processing.pkl','wb'))
