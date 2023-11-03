@@ -56,8 +56,6 @@ class get_dataset:
                 txt_labels.append('Normal')
                 num_normal += 1
         labels = np.array(labels)
-        num_samples_per_class = {'virus':num_virus, 'bacteria':num_bacteria, 'Normal':num_normal}
-        print(num_samples_per_class)
         
         return labels, txt_labels
 

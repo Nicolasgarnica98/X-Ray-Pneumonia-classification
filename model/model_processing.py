@@ -29,18 +29,18 @@ class CNN_Model():
         x = BatchNormalization()(x)
         x = MaxPooling2D(pool_size=(2,2))(x)
 
-        # x = Conv2D(filters=128, kernel_size=(3,3), activation='relu',padding='same')(x)
-        # x = BatchNormalization()(x)
-        # x = MaxPooling2D(pool_size=(2,2))(x)
+        x = Conv2D(filters=128, kernel_size=(3,3), activation='relu',padding='same')(x)
+        x = BatchNormalization()(x)
+        x = MaxPooling2D(pool_size=(2,2))(x)
+
+        x = Conv2D(filters=256, kernel_size=(3,3), activation='relu',padding='same')(x)
+        x = BatchNormalization()(x)
+        x = MaxPooling2D(pool_size=(2,2))(x)
 
         x = Flatten()(x)
-        # x = Dense(units=1024, activation='relu')(x)
-        # x = Dropout(0.2)(x)
-        # x = Dense(units=500,activation='relu')(x)
-        # x = Dropout(0.3)(x)
-        x = Dense(units=1024,activation='relu')(x)
+        x = Dense(units=4060,activation='relu')(x)
         x = Dropout(0.2)(x)
-        x = Dense(units=64,activation='relu')(x)
+        x = Dense(units=1024,activation='relu')(x)
         x = Dropout(0.1)(x)
         x = Dense(num_classes, activation='softmax')(x)
 
