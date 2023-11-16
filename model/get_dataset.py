@@ -1,5 +1,5 @@
 import os
-import wget
+# import wget
 import base64
 import shutil
 import numpy as np
@@ -26,9 +26,9 @@ class get_dataset:
             direct_download_url = create_onedrive_directdownload(onedrive_url)
 
             print('Downloading dataset')
-            r = wget.download(url=direct_download_url, out='./dataset/')
+            # r = wget.download(url=direct_download_url, out='./dataset/')
             print('\n')
-            return r
+            # return r
 
     def unzip_dataset(dataset_comp):
         if dataset_comp != None:
