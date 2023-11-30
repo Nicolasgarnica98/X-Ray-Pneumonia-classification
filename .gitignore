@@ -1,4 +1,4 @@
 dataset
-saved models
-saved train-history
+model/saved models
+model/saved train-history
 model/__pycache__
