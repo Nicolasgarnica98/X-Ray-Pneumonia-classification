@@ -11,4 +11,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 5000
 
-CMD ["flask","run","--host","0.0.0.0"]
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "app:app", "--reload", "--workers=1"] && python -mwebbrowser http://0.0.0.0:5000
