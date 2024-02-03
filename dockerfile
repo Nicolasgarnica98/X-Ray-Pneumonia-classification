@@ -9,6 +9,8 @@ COPY ./app.py /code/app.py
 
 RUN pip install --no-cache-dir -r requirements.txt
 
+RUN pip install gunicorn
+
 EXPOSE 5000
 
 CMD ["gunicorn", "-b", "0.0.0.0:5000", "app:app", "--reload", "--workers=1"] && python -mwebbrowser http://0.0.0.0:5000
