@@ -40,9 +40,9 @@ docker pull nicolasgarncia/pneumonia_classification_app:V1.0
 ```
 Make sure to have docker installed and running. To run the image:
 ```console
-docker run -p <your port>:5000 nicolasgarncia/pneumonia_classification_app:V1.0
+docker run -p <"your port">:5000 nicolasgarncia/pneumonia_classification_app:V1.0
 ```
-Make sure to have ```your port``` available for the app to deploy. This port is the one that will be mapped with the exposed port 5000 of the image. When the image is up and running you only have to follow the steps on section 2.
+Make sure to have ```"your port"``` available for the app to deploy. This port is the one that will be mapped with the exposed port 5000 of the image. When the image is up and running you only have to follow the steps on section 2.
 
 ### 3. How to explore and tune the model
 
