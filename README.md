@@ -7,7 +7,7 @@ The goal of this project is to build a CNN capable of detecting pneumonia in che
 This project is built with the Tensorflow 2.X framework in Python 3.9, and it is being deployed as a web app by using a simple API interface with the popular Flask framework, in which I decided to add a visual interface made in HTML.
 
 ### 2. Try it out! (Run the web app)
-There are two ways in which you can try my app. In both of them the app will be deployed on the port 5000 and will show the following console output:
+There are two ways in which you can try the app. In both of them the app will be deployed on the port 5000 and will show the following console output:
 ```console
  * Serving Flask app 'app'
  * Debug mode: on
@@ -24,7 +24,7 @@ You will have to click on the first IP adress+port:5000 that appears under ```Ru
 <img src="static\UI.jpg" alt="ui_image"/>
 </div>
 
-You can try the app by manually downloading any chest x-ray image (normal or pneumonia-infected) from google on your computer and then load it by clicking on the "Choose File" button. Once the image is loaded, you will be able to see the name of the file and then it is possible to make a prediction by clicking on the "Predict Image" button. After a couple of seconds the prediction will be shown as a label: _Normal_ , _Virus Pneumonia_ or _Bacteria Pneumonia_.
+You can try the app by manually downloading any chest x-ray image (normal or pneumonia-infected) from google to your computer and then load it by clicking on the "Choose File" button. Once the image is loaded, you will be able to see the name of the file and then it is possible to make a prediction by clicking on the "Predict Image" button. After a couple of seconds the prediction will be shown as a label: _Normal_ , _Virus Pneumonia_ or _Bacteria Pneumonia_.
 
 #### 2.1. Local run
 To locally run the app, you can clone this repository and then install the required libraries:
