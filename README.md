@@ -27,7 +27,7 @@ You will have to click on the first IP adress+port:5000 that appears under ```Ru
 You can try the app by manually downloading any chest x-ray image (normal or pneumonia-infected) from google on your computer and then load it by clicking on the "Choose File" button. Once the image is loaded, you will be able to see the name of the file and then it is possible to make a prediction by clicking on the "Predict Image" button. After a couple of seconds the prediction will be shown as a label: _Normal_ , _Virus Pneumonia_ or _Bacteria Pneumonia_.
 
 #### 2.1. Local run
-To locally run the app, you can pull this repository and then install the required libraries:
+To locally run the app, you can clone this repository and then install the required libraries:
 ```console
 pip install -r requirements.txt
 ```
