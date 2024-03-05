@@ -5,7 +5,7 @@ from model.get_dataset import get_dataset
 import os
 
 app = Flask(__name__)
-model = tf.keras.models.load_model('./model/saved models/CNN_64px_NN512_SavedModel.h5')
+model = tf.keras.models.load_model('./model/saved models/CNN_128px_NN1024_regL2_SavedModel.h5')
 
 @app.route('/', methods=['GET'])
 def hello_word():

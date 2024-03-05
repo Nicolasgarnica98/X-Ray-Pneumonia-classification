@@ -1,12 +1,15 @@
 <html>
     <head>
         <title>Chest X-Ray pneumonia detector</title>
+        <meta charset="utf-8"/>
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1, user-scalable=no"/>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/home.css') }}">
     </head>
 
     <body>
-        <h1 class="text-center">X-Ray image Classifier</h1>
-
-        <form class="p-3 text-center" action='/', method="post" enctype="multipart/form-data">
+        <h1 >X-Ray image Classifier</h1>
+        <form action='/', method="post" enctype="multipart/form-data">
             <input class="form-control" type="file" name="imagefile" >
             <input class="btn btn-primary mt-3"type="submit" value="Predict Image" >
         </form>
