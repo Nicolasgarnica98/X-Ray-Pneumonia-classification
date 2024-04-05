@@ -56,15 +56,3 @@ class pre_processing:
             img = img/255
         return img
         
-class batch_loader():
-
-    def __init__(self):
-        pass
-
-    def image_data_generator():
-        train_datagen = ImageDataGenerator(preprocessing_function=pre_processing.image_preprocessing_single)
-        generator = train_datagen.flow_from_directory()
-
-#Save the preprocessing methods
-import pickle
-pickle.dump(pre_processing,open('./model/pre_processing.pkl','wb'))
